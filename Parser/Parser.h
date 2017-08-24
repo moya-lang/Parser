@@ -10,52 +10,52 @@
 
 class Parser
 {
-	protected:
+    protected:
 
-		size_t typeId = 0;
-		ObjectTree &objectTree;
-		StringSequencer &stringSequencer;
+        size_t typeId = 0;
+        ObjectTree &objectTree;
+        StringSequencer &stringSequencer;
 
-		bool parseElement(std::function<bool(size_t)> onParse, size_t type, size_t parent, bool silent)
-		{
-			size_t oldPosition = stringSequencer.position;
-			size_t objectId = objectTree.create();
+        bool parseElement(std::function<bool(size_t)> onParse, size_t type, size_t parent, bool silent)
+        {
+            size_t oldPosition = stringSequencer.position;
+            size_t objectId = objectTree.create();
 
-			bool status = onParse(objectId);
+            bool status = onParse(objectId);
 
-			if (!status || silent)
-				objectTree.rollback(objectId);
+            if (!status || silent)
+                objectTree.rollback(objectId);
 
-			else {
-				Object &object = objectTree.commit(objectId);
-				object.type = type;
-				object.parent = parent;
-				object.from = oldPosition;
-				object.to = stringSequencer.position;
-			}
+            else {
+                Object &object = objectTree.commit(objectId);
+                object.type = type;
+                object.parent = parent;
+                object.from = oldPosition;
+                object.to = stringSequencer.position;
+            }
 
-			if (!status)
-				stringSequencer.position = oldPosition;
+            if (!status)
+                stringSequencer.position = oldPosition;
 
-			return status;
-		}
+            return status;
+        }
 
 
-	public:
+    public:
 
-		static const size_t nullParent = size_t(-1);
+        static const size_t nullParent = size_t(-1);
 
-		Parser(ObjectTree &objectTree, StringSequencer &stringSequencer) :
-			objectTree(objectTree), stringSequencer(stringSequencer)
-		{
-		}
+        Parser(ObjectTree &objectTree, StringSequencer &stringSequencer) :
+            objectTree(objectTree), stringSequencer(stringSequencer)
+        {
+        }
 
-		size_t getNumberOfTypes() const
-		{
-			return typeId;
-		}
+        size_t getNumberOfTypes() const
+        {
+            return typeId;
+        }
 
-		virtual bool parse() = 0;
+        virtual bool parse() = 0;
 };
 
 #endif
