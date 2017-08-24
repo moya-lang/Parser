@@ -10,7 +10,7 @@
 #define PARSER_PARSE_STOP() (stringSequencer.isEndOfFile())
 #define PARSER_ADVANCE() (stringSequencer.advance())
 #define PARSER_INIT(ParserName, EntryPoint) public: \
-	virtual bool parse() { size_t parent = Parser::nullParent; return PARSER_PARSE(EntryPoint); } \
-	ParserName(ObjectTree &objectTree, StringSequencer &stringSequencer) : Parser(objectTree, stringSequencer)
+    virtual bool parse() { size_t parent = Parser::nullParent; return PARSER_PARSE(EntryPoint); } \
+    ParserName(ObjectTree &objectTree, StringSequencer &stringSequencer) : Parser(objectTree, stringSequencer)
 
 #endif
