@@ -2,6 +2,6 @@
 
 int main(int argc, char **argv)
 {
-    ProjectName project(argv, argc);
+    ProjectName project(argc, argv);
     return project.run();
 }

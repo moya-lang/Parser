@@ -74,25 +74,25 @@
     <LinkIncremental>true</LinkIncremental>
     <OutDir>$(SolutionDir)Build\$(ProjectName)_$(Platform)_$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)Build\$(ProjectName)_$(Platform)_$(Configuration)\Intermediate\</IntDir>
-    <IncludePath>$(SolutionDir)Parser;$(SolutionDir)Examples\$(ProjectName);$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <IncludePath>$(SolutionDir)$(SolutionName);$(SolutionDir)Examples\$(ProjectName);$(VC_IncludePath);$(WindowsSDK_IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
     <OutDir>$(SolutionDir)Build\$(ProjectName)_$(Platform)_$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)Build\$(ProjectName)_$(Platform)_$(Configuration)\Intermediate\</IntDir>
-    <IncludePath>$(SolutionDir)Parser;$(SolutionDir)Examples\$(ProjectName);$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <IncludePath>$(SolutionDir)$(SolutionName);$(SolutionDir)Examples\$(ProjectName);$(VC_IncludePath);$(WindowsSDK_IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
     <OutDir>$(SolutionDir)Build\$(ProjectName)_$(Platform)_$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)Build\$(ProjectName)_$(Platform)_$(Configuration)\Intermediate\</IntDir>
-    <IncludePath>$(SolutionDir)Parser;$(SolutionDir)Examples\$(ProjectName);$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <IncludePath>$(SolutionDir)$(SolutionName);$(SolutionDir)Examples\$(ProjectName);$(VC_IncludePath);$(WindowsSDK_IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
     <OutDir>$(SolutionDir)Build\$(ProjectName)_$(Platform)_$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)Build\$(ProjectName)_$(Platform)_$(Configuration)\Intermediate\</IntDir>
-    <IncludePath>$(SolutionDir)Parser;$(SolutionDir)Examples\$(ProjectName);$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <IncludePath>$(SolutionDir)$(SolutionName);$(SolutionDir)Examples\$(ProjectName);$(VC_IncludePath);$(WindowsSDK_IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -154,16 +154,10 @@
     <ClCompile Include="Entry.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Examples\Calculator\Calculator.h" />
-    <ClInclude Include="Examples\Calculator\CalculatorSolver.h" />
-    <ClInclude Include="Examples\Calculator\MathFunctions.h" />
-    <ClInclude Include="Examples\Calculator\MathParser.h" />
-    <ClInclude Include="Parser\FileString.h" />
-    <ClInclude Include="Parser\ParserMacros.h" />
-    <ClInclude Include="Parser\Object.h" />
-    <ClInclude Include="Parser\ObjectTree.h" />
-    <ClInclude Include="Parser\Parser.h" />
-    <ClInclude Include="Parser\StringSequencer.h" />
+    <ClInclude Include="Parser\CopyPointer.h" />
+    <ClInclude Include="Parser\Syntax.h" />
+    <ClInclude Include="Parser\SyntaxData.h" />
+    <ClInclude Include="Parser\SyntaxType.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
