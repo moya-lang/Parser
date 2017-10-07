@@ -1,5 +1,5 @@
-#ifndef Object_H
-#define Object_H
+#ifndef ObjectH
+#define ObjectH
 
 #include <cstddef>
 

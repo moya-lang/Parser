@@ -1,5 +1,5 @@
-#ifndef FileString_H
-#define FileString_H
+#ifndef FileStringH
+#define FileStringH
 
 #include <string>
 #include <fstream>

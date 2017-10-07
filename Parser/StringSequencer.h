@@ -1,5 +1,5 @@
-#ifndef StringSequencer_H
-#define StringSequencer_H
+#ifndef StringSequencerH
+#define StringSequencerH
 
 #include <string>
 

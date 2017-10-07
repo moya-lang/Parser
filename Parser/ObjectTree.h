@@ -1,5 +1,5 @@
-#ifndef ObjectTree_H
-#define ObjectTree_H
+#ifndef ObjectTreeH
+#define ObjectTreeH
 
 #include <vector>
 
