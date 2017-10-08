@@ -1,5 +1,5 @@
-#ifndef MathFunctions_H
-#define MathFunctions_H
+#ifndef MathFunctionsH
+#define MathFunctionsH
 
 #include <cmath>
 #include <vector>
