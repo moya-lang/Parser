@@ -1,26 +1,21 @@
-#ifndef Calculator_H
-#define Calculator_H
+#ifndef CalculatorH
+#define CalculatorH
 
-#include <map>
 #include <string>
 #include <iostream>
 
-#include "CalculatorSolver.h"
+#include "MathParser.h"
+#include "MathSolver.h"
 
 class Calculator
 {
-    MathFunctions mathFunctions;
-    std::map<std::string, double> variables;
+    MathParser parser;
+    MathSolver solver;
 
     bool solve(const std::string &expression)
     {
-        ObjectTree objectTree;
-        StringSequencer sequencer(expression);
-        MathParser mathParser(objectTree, sequencer);
-        CalculatorSolver solver(objectTree, mathParser, expression, mathFunctions, variables);
-
-        if (!mathParser.parse()) {
-            std::cout << "Error: Invalid syntax" << std::endl;
+        if (!parser.parse(expression)) {
+            std::cout << "Error: " << parser.getErrorString() << std::endl;
             return false;
         }
 
@@ -36,16 +31,15 @@ class Calculator
 
     public:
 
-        Calculator(char **arguments, int numberOfArguments)
+        Calculator(int argumentCount, char **arguments) :
+            solver(parser)
         {
-            variables["e"] = 2.7182818284590452;
-            variables["pi"] = 3.1415926535897932;
         }
 
         int run()
         {
             std::cout << "Calculator" << std::endl;
-            std::cout << "Varsion: 1.0" << std::endl;
+            std::cout << "Version: 1.1" << std::endl;
 
             while (true) {
 
@@ -53,11 +47,11 @@ class Calculator
                 std::cout << std::endl << ": ";
                 std::getline(std::cin, command);
 
-                if (command == "exit")
-                    return 0;
-
                 if (command == "")
                     continue;
+
+                if (command == "exit")
+                    return 0;
 
                 solve(command);
             }

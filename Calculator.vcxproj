@@ -154,7 +154,14 @@
     <ClCompile Include="Entry.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Examples\Calculator\Calculator.h" />
+    <ClInclude Include="Examples\Calculator\MathFunctions.h" />
+    <ClInclude Include="Examples\Calculator\MathParser.h" />
+    <ClInclude Include="Examples\Calculator\MathSolver.h" />
     <ClInclude Include="Parser\CopyPointer.h" />
+    <ClInclude Include="Parser\FileString.h" />
+    <ClInclude Include="Parser\Parser.h" />
+    <ClInclude Include="Parser\StringSequencer.h" />
     <ClInclude Include="Parser\Syntax.h" />
     <ClInclude Include="Parser\SyntaxData.h" />
     <ClInclude Include="Parser\SyntaxType.h" />
