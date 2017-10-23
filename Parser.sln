@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26430.16
+VisualStudioVersion = 15.0.27004.2005
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{C0B6B69E-6EFC-4CD8-A27B-BC73B8FFC0DC}") = "Calculator", "Calculator.vcxproj", "{584EC312-3AD5-45EC-ACA8-231F03DA4B44}"
 EndProject

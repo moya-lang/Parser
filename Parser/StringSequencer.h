@@ -5,11 +5,10 @@
 
 class StringSequencer
 {
-    const std::string &string;
+	std::size_t position = 0;
+	const std::string &string;
 
     public:
-
-        size_t position = 0;
 
         StringSequencer(const std::string &string) :
             string(string)
@@ -63,7 +62,7 @@ class StringSequencer
 
         bool isSequence(const char *sequence)
         {
-            size_t newPosition = position;
+            std::size_t newPosition = position;
 
             const char *data = string.data();
             while (*sequence && (newPosition < string.size()))
