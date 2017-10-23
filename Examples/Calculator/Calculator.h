@@ -5,35 +5,17 @@
 #include <iostream>
 
 #include "MathParser.h"
-#include "MathSolver.h"
 
 class Calculator
 {
-    MathParser parser;
-    MathSolver solver;
-
-    bool solve(const std::string &expression)
-    {
-        if (!parser.parse(expression)) {
-            std::cout << "Error: " << parser.getErrorString() << std::endl;
-            return false;
-        }
-
-        if (!solver.solve()) {
-            std::cout << "Error: " << solver.getErrorString() << std::endl;
-            return false;
-        }
-
-        std::cout << solver.getResult() << std::endl;
-        return true;
-    }
-
+    MathParser mathParser;
 
     public:
 
-        Calculator(int argumentCount, char **arguments) :
-            solver(parser)
+        Calculator(int argumentCount, char **arguments)
         {
+            (void) argumentCount;
+            (void) arguments;
         }
 
         int run()
@@ -53,7 +35,11 @@ class Calculator
                 if (command == "exit")
                     return 0;
 
-                solve(command);
+                if (mathParser.solve(command))
+                    std::cout << mathParser.getResult() << std::endl;
+
+                else
+                    std::cout << "Error: " << mathParser.getErrorString() << std::endl;
             }
         }
 };

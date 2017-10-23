@@ -23,7 +23,8 @@ struct SyntaxData
         return ++uniqueSyntaxId;
     }
 
-    ~SyntaxData()
+    SyntaxData(SyntaxType syntaxType, std::string content = std::string()) :
+        id(generateUniqueSyntaxId()), type(syntaxType), content(content)
     {
     }
 
@@ -34,11 +35,6 @@ struct SyntaxData
 
     SyntaxData(SyntaxData &&data) noexcept :
         id(std::move(data.id)), type(std::move(data.type)), content(std::move(data.content)), left(std::move(data.left)), right(std::move(data.right))
-    {
-    }
-
-    SyntaxData(SyntaxType syntaxType, std::string content = std::string()) :
-        id(generateUniqueSyntaxId()), type(syntaxType), content(content)
     {
     }
 

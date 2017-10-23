@@ -1,6 +1,7 @@
 #ifndef SyntaxH
 #define SyntaxH
 
+#include <string>
 #include <utility>
 
 #include "SyntaxData.h"
@@ -9,8 +10,8 @@ class Syntax
 {
     SyntaxData data;
 
-    Syntax &operator =(const Syntax &syntax) noexcept;
-    Syntax &operator =(Syntax &&syntax) noexcept;
+    Syntax &operator =(const Syntax &syntax) = delete;
+    Syntax &operator =(Syntax &&syntax) = delete;
 
     Syntax(SyntaxType syntaxType, std::string content = std::string()) :
         data(syntaxType, content)
@@ -59,10 +60,6 @@ class Syntax
 
 
     public:
-
-        ~Syntax() noexcept
-        {
-        }
 
         explicit Syntax(int character) noexcept :
             data(SyntaxType::character, std::string(1, (char) character))
