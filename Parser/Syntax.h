@@ -187,11 +187,6 @@ class Syntax
             return Syntax(std::move(*this), std::move(syntax), SyntaxType::range);
         }
 
-        static Syntax hidden(std::string content) noexcept
-        {
-            return Syntax(SyntaxType::hidden, content);
-        }
-
         static Syntax error(std::string content) noexcept
         {
             return Syntax(SyntaxType::error, content);

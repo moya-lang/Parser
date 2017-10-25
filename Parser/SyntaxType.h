@@ -1,7 +1,7 @@
 #ifndef SyntaxTypeH
 #define SyntaxTypeH
 
-enum class SyntaxType : int
+enum class SyntaxType : std::size_t
 {
     reference,
     character,
@@ -13,7 +13,6 @@ enum class SyntaxType : int
     conjunction,
     alternative,
     range,
-    hidden,
     error,
 };
 
