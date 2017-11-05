@@ -11,6 +11,7 @@
 struct SyntaxData
 {
     unsigned id;
+    bool visible;
     SyntaxType type;
     std::string content;
 
@@ -24,37 +25,14 @@ struct SyntaxData
     }
 
     SyntaxData(SyntaxType syntaxType, std::string content = std::string()) :
-        id(generateUniqueSyntaxId()), type(syntaxType), content(content)
+        id(generateUniqueSyntaxId()), visible(true), type(syntaxType), content(content)
     {
     }
 
-    SyntaxData(const SyntaxData &data) :
-        id(data.id), type(data.type), content(data.content), left(data.left), right(data.right)
-    {
-    }
-
-    SyntaxData(SyntaxData &&data) noexcept :
-        id(std::move(data.id)), type(std::move(data.type)), content(std::move(data.content)), left(std::move(data.left)), right(std::move(data.right))
-    {
-    }
-
-    SyntaxData &operator =(const SyntaxData &data)
-    {
-        id = data.id;
-        type = data.type;
-        content = data.content;
-        left = data.left;
-        right = data.right;
-    }
-
-    SyntaxData &operator =(SyntaxData &&data)
-    {
-        id = std::move(data.id);
-        type = std::move(data.type);
-        content = std::move(data.content);
-        left = std::move(data.left);
-        right = std::move(data.right);
-    }
+    SyntaxData(const SyntaxData &data) = default;
+    SyntaxData(SyntaxData &&data) noexcept = default;
+    SyntaxData &operator =(const SyntaxData &data) = default;
+    SyntaxData &operator =(SyntaxData &&data) = default;
 };
 
 #endif

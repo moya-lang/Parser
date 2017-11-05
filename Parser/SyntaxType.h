@@ -4,14 +4,15 @@
 enum class SyntaxType : std::size_t
 {
     reference,
-    character,
-    sequence,
-    silent,
+    visibility,
     zeroOrOne,
     oneOrMore,
     zeroOrMore,
     conjunction,
     alternative,
+    endOfFile,
+    sequence,
+    oneOf,
     range,
     error,
 };

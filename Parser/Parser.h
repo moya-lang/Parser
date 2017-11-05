@@ -16,41 +16,26 @@ class Parser
 	std::string errorString;
 	static const size_t nullParent = size_t(-1);
 
-    bool validate(const SyntaxData &syntaxData)
-    {/*
-        if (syntaxData.type == SyntaxType::range)
-            return ((syntaxData.left->type == SyntaxType::character) && (syntaxData.right->type == SyntaxType::character));
-
-        if (syntaxData.left)
-            if (!validate(*syntaxData.left))
-                return false;
-
-        if (syntaxData.right)
-            if (!validate(*syntaxData.right))
-                return false;
-        */
-        return true;
-    }
-
     bool parse(const SyntaxData &syntaxData, std::size_t parent)
     {
+        bool visible = syntaxData.visible;
+        if (syntaxData.type == SyntaxType::visibility)
+            visible = !visible;
+
+        std::size_t objectId = visible ? objectTree.create() : parent;
         std::size_t oldPosition = stringSequencer.position;
-        std::size_t objectId = objectTree.create();
 
-        bool status = true;
-        if ((syntaxData.type == SyntaxType::reference) || (syntaxData.type == SyntaxType::silent))
-            status = parse(*syntaxData.left, objectId);
-
-        else if ((syntaxData.type == SyntaxType::character) || (syntaxData.type == SyntaxType::sequence))
-            status = stringSequencer.isSequence(syntaxData.content.c_str());
+        bool success = true;
+        if ((syntaxData.type == SyntaxType::reference) || (syntaxData.type == SyntaxType::visibility))
+            success = parse(*syntaxData.left, objectId);
 
         else if (syntaxData.type == SyntaxType::zeroOrOne)
             parse(*syntaxData.left, objectId);
 
         else if (syntaxData.type == SyntaxType::oneOrMore) {
-            status = false;
+            success = false;
             while (parse(*syntaxData.left, objectId))
-                status = true;
+                success = true;
         }
 
         else if (syntaxData.type == SyntaxType::zeroOrMore) {
@@ -58,34 +43,43 @@ class Parser
         }
 
         else if (syntaxData.type == SyntaxType::conjunction)
-            status = parse(*syntaxData.left, objectId) && parse(*syntaxData.right, objectId);
+            success = parse(*syntaxData.left, objectId) && parse(*syntaxData.right, objectId);
 
         else if (syntaxData.type == SyntaxType::alternative)
-            status = parse(*syntaxData.left, objectId) || parse(*syntaxData.right, objectId);
+            success = parse(*syntaxData.left, objectId) || parse(*syntaxData.right, objectId);
+
+        else if (syntaxData.type == SyntaxType::endOfFile)
+            success = stringSequencer.isEndOfFile();
+
+        else if (syntaxData.type == SyntaxType::sequence)
+            success = stringSequencer.isSequence(syntaxData.content.c_str());
+
+        else if (syntaxData.type == SyntaxType::oneOf)
+            success = stringSequencer.isOneOf(syntaxData.content.c_str());
 
         else if (syntaxData.type == SyntaxType::range)
-            status = stringSequencer.isInRange(syntaxData.left->content[0], syntaxData.right->content[0]);
+            success = stringSequencer.isInRange(syntaxData.content[0], syntaxData.content[1]);
 
         else {
             errorString = syntaxData.content;
-            status = false;
+            success = false;
         }
 
-        if (!status/* || (syntaxData.type == SyntaxType::silent)*/)
-            objectTree.rollback(objectId);
+        if (visible)
+            if (success) {
+                Object &object = objectTree.commit(objectId);
+                object.syntaxId = syntaxData.id;
+                object.parent = parent;
+                object.from = oldPosition;
+                object.to = stringSequencer.position;
+            }
+            else
+                objectTree.rollback(objectId);
 
-        else {
-            Object &object = objectTree.commit(objectId);
-            object.syntaxId = syntaxData.id;
-            object.parent = parent;
-            object.from = oldPosition;
-            object.to = stringSequencer.position;
-        }
-
-        if (!status)
+        if (!success)
             stringSequencer.position = oldPosition;
 
-        return status;
+        return success;
     }
 
 
@@ -98,11 +92,6 @@ class Parser
 
         bool parse()
         {
-            if (!validate(syntax.getData())) {
-                errorString = "Range on non-characters";
-                return false;
-            }
-
 			return parse(syntax.getData(), Parser::nullParent);
         }
 

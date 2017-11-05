@@ -9,24 +9,24 @@
 
 class MathParser
 {
-    Syntax mathExpression = !assignment & additiveExpression & ~!whitespaces;
-    Syntax assignment = ~!whitespaces & variableWrite & ~(!whitespaces & Syntax('='));
-    Syntax additiveExpression = multiplicativeExpression & !(~!whitespaces & (~Syntax('+') | ~Syntax('-')) & additiveExpression);
-    Syntax multiplicativeExpression = exponentalExpression & !(~!whitespaces & (~Syntax('*') | ~Syntax('/')) & multiplicativeExpression);
-    Syntax exponentalExpression = unaryOperation & !(~!whitespaces & Syntax('^') & exponentalExpression);
-    Syntax unaryOperation = factor | ((~Syntax('+') | ~Syntax('-')) & unaryOperation);
-    Syntax factor = (~!whitespaces & (bracedExpression | functionCall | variableRead | realNumber)) | Syntax::error("Factor expected");
-    Syntax bracedExpression = ~Syntax('(') & additiveExpression & ~!whitespaces & (~Syntax(')') | Syntax::error("Closing bracket expected"));
-    Syntax functionCall = identifier & ~!whitespaces & ~Syntax('(') & argumentList & ~!whitespaces & (~Syntax(')') | Syntax::error("Closing bracket expected"));
-    Syntax argumentList = !(additiveExpression & *(~!whitespaces & ~Syntax(',') & (additiveExpression | Syntax::error("Function argument expected"))));
-    Syntax variableWrite = ~(((Syntax('pi') | Syntax('e')) & Syntax::error("Cannot assign to constant")) | identifier);
-    Syntax variableRead = ~identifier;
-    Syntax identifier = ~(letter & *(letter | digit)) | Syntax::error("Identifier expected");
-    Syntax realNumber = ~(integerNumber & !(Syntax('.') & integerNumber) & !((Syntax('E') | Syntax('e')) & !(Syntax('+') | Syntax('-')) & integerNumber)) | Syntax::error("Real number expected");
-    Syntax integerNumber = ~+digit | Syntax::error("Integer number expected");
-    Syntax whitespaces = ~+(Syntax(' ') | Syntax('\n') | Syntax('\r') | Syntax('\t') | Syntax('\f') | Syntax('\v')) | Syntax::error("Whitespace expected");
-    Syntax letter = ~((Syntax('a') - Syntax('z')) | (Syntax('A') - Syntax('Z'))) | Syntax::error("Alphabetic character expected");
-    Syntax digit = ~(Syntax('0') - Syntax('9')) | Syntax::error("Decimal digit expected");
+    Syntax mathExpression = !assignment & additiveExpression & whitespaces & (Syntax::endOfFile() | Syntax::error("Unexpected character"));
+    Syntax assignment = whitespaces & variableWrite & (whitespaces & Syntax::sequence("="));
+    Syntax additiveExpression = multiplicativeExpression & !(whitespaces & ~Syntax::oneOf("+-") & additiveExpression);
+    Syntax multiplicativeExpression = exponentalExpression & !(whitespaces & ~Syntax::oneOf("*/") & multiplicativeExpression);
+    Syntax exponentalExpression = unaryOperation & !(whitespaces & Syntax::sequence("^") & exponentalExpression);
+    Syntax unaryOperation = factor | (~Syntax::oneOf("-+") & unaryOperation);
+    Syntax factor = (whitespaces & (bracedExpression | functionCall | variableRead | realNumber)) | Syntax::error("Factor expected");
+    Syntax bracedExpression = Syntax::sequence("(") & additiveExpression & whitespaces & (Syntax::sequence(")") | Syntax::error("Closing bracket expected"));
+    Syntax functionCall = identifier & whitespaces & Syntax::sequence("(") & argumentList & whitespaces & (Syntax::sequence(")") | Syntax::error("Closing bracket expected"));
+    Syntax argumentList = !(additiveExpression & *(whitespaces & Syntax::sequence(",") & (additiveExpression | Syntax::error("Function argument expected"))));
+    Syntax variableWrite = ((Syntax::sequence("pi") | Syntax::sequence("e")) & Syntax::error("Cannot assign to constant")) | identifier;
+    Syntax variableRead = identifier;
+    Syntax identifier = (letter & *(letter | digit)) | Syntax::error("Identifier expected");
+    Syntax realNumber = (integerNumber & !(Syntax::sequence(".") & integerNumber) & !(Syntax::oneOf("Ee") & !Syntax::oneOf("+-") & integerNumber)) | Syntax::error("Real number expected");
+    Syntax integerNumber = +digit | Syntax::error("Integer number expected");
+    Syntax whitespaces = *Syntax::oneOf(" \n\r\t\f\v");
+    Syntax letter = Syntax::range('a', 'z') | Syntax::range('A', 'Z') | Syntax::error("Alphabetic character expected");
+    Syntax digit = Syntax::range('0', '9') | Syntax::error("Decimal digit expected");
 
 	std::string errorString;
 	MathFunctions mathFunctions;
@@ -76,15 +76,16 @@ class MathParser
             str[whitespaces.getData().id] = "whitespaces";
             str[letter.getData().id] = "letter";
             str[digit.getData().id] = "digit";
-            for (std::size_t objectId = 0; objectId < objectTree.size(); objectId++)
-                std::cout << "ID: " << objectId << ", " << str[objectTree[objectId].syntaxId] << std::endl;
 
-            // TODO:
-            // - Use ~ operator in oposite way: By default all are silent and ~ is not.
-            // - Use const char * instead of size_t position in parsed object to handle hidden objects
-            // - Replace strings with const char * if needed
-            // - convert range to double-character content
-            // ...
+            for (std::size_t objectId = 0; objectId < objectTree.size(); objectId++) {
+                std::cout << "objectId: " << objectId;
+                std::cout << ", parentId: " << objectTree[objectId].parent;
+                std::cout << ", syntaxId: " << objectTree[objectId].syntaxId;
+                if (!str[objectTree[objectId].syntaxId].empty())
+                    std::cout << " (" << str[objectTree[objectId].syntaxId] << ")";
+                std::cout << ", content: '" << std::string(&expression.c_str()[objectTree[objectId].from], &expression.c_str()[objectTree[objectId].to]) << "'";
+                std::cout << std::endl;
+            }
 
             return true;
         }
