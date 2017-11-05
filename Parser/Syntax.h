@@ -28,6 +28,8 @@ class Syntax
         data(syntaxType)
     {
         data.left = std::move(left.data);
+
+        data.left->visible = !data.left->visible;
     }
 
     Syntax(const Syntax &left, const Syntax &right, SyntaxType syntaxType) noexcept :
@@ -42,6 +44,8 @@ class Syntax
     {
         data.left = std::move(left.data);
         data.right = right.data;
+
+        data.left->visible = !data.left->visible;
     }
 
     Syntax(const Syntax &left, Syntax &&right, SyntaxType syntaxType) noexcept :
@@ -49,6 +53,8 @@ class Syntax
     {
         data.left = left.data;
         data.right = std::move(right.data);
+
+        data.right->visible = !data.right->visible;
     }
 
     Syntax(Syntax &&left, Syntax &&right, SyntaxType syntaxType) noexcept :
@@ -56,25 +62,13 @@ class Syntax
     {
         data.left = std::move(left.data);
         data.right = std::move(right.data);
+
+        data.left->visible = !data.left->visible;
+        data.right->visible = !data.right->visible;
     }
 
 
     public:
-
-        explicit Syntax(int character) noexcept :
-            data(SyntaxType::character, std::string(1, (char) character))
-        {
-        }
-
-        explicit Syntax(char character) noexcept :
-            data(SyntaxType::character, std::string(1, character))
-        {
-        }
-
-        explicit Syntax(std::string sequence) noexcept :
-            data(SyntaxType::sequence, sequence)
-        {
-        }
 
         Syntax(const Syntax &syntax) noexcept :
             data(SyntaxType::reference)
@@ -82,19 +76,16 @@ class Syntax
             data.left = syntax.data;
         }
 
-        Syntax(Syntax &&syntax) noexcept :
-            data(std::move(syntax.data))
-        {
-        }
+        Syntax(Syntax &&syntax) noexcept = default;
 
         Syntax operator ~() const & noexcept
         {
-            return Syntax(*this, SyntaxType::silent);
+            return Syntax(*this, SyntaxType::visibility);
         }
 
         Syntax operator ~() && noexcept
         {
-            return Syntax(std::move(*this), SyntaxType::silent);
+            return Syntax(std::move(*this), SyntaxType::visibility);
         }
 
         Syntax operator !() const & noexcept
@@ -167,24 +158,24 @@ class Syntax
             return Syntax(std::move(*this), std::move(syntax), SyntaxType::alternative);
         }
 
-        Syntax operator -(const Syntax &syntax) const & noexcept
+        static Syntax endOfFile() noexcept
         {
-            return Syntax(*this, syntax, SyntaxType::range);
+            return Syntax(SyntaxType::endOfFile);
         }
 
-        Syntax operator -(const Syntax &syntax) && noexcept
+        static Syntax sequence(std::string content) noexcept
         {
-            return Syntax(std::move(*this), syntax, SyntaxType::range);
+            return Syntax(SyntaxType::sequence, content);
         }
 
-        Syntax operator -(Syntax &&syntax) const & noexcept
+        static Syntax oneOf(std::string content) noexcept
         {
-            return Syntax(*this, std::move(syntax), SyntaxType::range);
+            return Syntax(SyntaxType::oneOf, content);
         }
 
-        Syntax operator -(Syntax &&syntax) && noexcept
+        static Syntax range(char from, char to) noexcept
         {
-            return Syntax(std::move(*this), std::move(syntax), SyntaxType::range);
+            return Syntax(SyntaxType::range, { from, to });
         }
 
         static Syntax error(std::string content) noexcept
