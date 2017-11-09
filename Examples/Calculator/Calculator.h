@@ -10,6 +10,7 @@ class Calculator
 {
     MathParser mathParser;
 
+
     public:
 
         Calculator(int argumentCount, char **arguments)

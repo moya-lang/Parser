@@ -8,31 +8,33 @@
 #include "SyntaxType.h"
 #include "CopyPointer.h"
 
-struct SyntaxData
+class SyntaxData
 {
-    unsigned id;
-    bool visible;
-    SyntaxType type;
-    std::string content;
+    public:
 
-    CopyPointer<SyntaxData> left;
-    CopyPointer<SyntaxData> right;
+        unsigned id;
+        bool visible;
+        SyntaxType type;
+        std::string content;
 
-    unsigned generateUniqueSyntaxId()
-    {
-        static std::atomic<unsigned> uniqueSyntaxId = 0;
-        return ++uniqueSyntaxId;
-    }
+        CopyPointer<SyntaxData> left;
+        CopyPointer<SyntaxData> right;
 
-    SyntaxData(SyntaxType syntaxType, std::string content = std::string()) :
-        id(generateUniqueSyntaxId()), visible(true), type(syntaxType), content(content)
-    {
-    }
+        unsigned generateUniqueSyntaxId()
+        {
+            static std::atomic<unsigned> uniqueSyntaxId = 0;
+            return ++uniqueSyntaxId;
+        }
 
-    SyntaxData(const SyntaxData &data) = default;
-    SyntaxData(SyntaxData &&data) noexcept = default;
-    SyntaxData &operator =(const SyntaxData &data) = default;
-    SyntaxData &operator =(SyntaxData &&data) = default;
+        SyntaxData(SyntaxType syntaxType, std::string content = std::string()) :
+            id(generateUniqueSyntaxId()), visible(true), type(syntaxType), content(content)
+        {
+        }
+
+        SyntaxData(const SyntaxData &data) = default;
+        SyntaxData(SyntaxData &&data) noexcept = default;
+        SyntaxData &operator =(const SyntaxData &data) = default;
+        SyntaxData &operator =(SyntaxData &&data) = default;
 };
 
 #endif

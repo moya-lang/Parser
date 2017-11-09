@@ -9,6 +9,8 @@ class ObjectTree : public std::vector<Object>
 {
     public:
 
+        static const std::size_t nullObject = std::size_t(-1);
+
         ObjectTree(size_t initialCapacity = 32 * 1024)
         {
             reserve(initialCapacity);
