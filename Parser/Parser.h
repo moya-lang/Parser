@@ -13,8 +13,7 @@ class Parser
 	StringSequencer &stringSequencer;
 	ObjectTree &objectTree;
 
-	std::string errorString;
-	static const size_t nullParent = size_t(-1);
+    std::string errorString;
 
     bool parse(const SyntaxData &syntaxData, std::size_t parent)
     {
@@ -29,17 +28,27 @@ class Parser
         if ((syntaxData.type == SyntaxType::reference) || (syntaxData.type == SyntaxType::visibility))
             success = parse(*syntaxData.left, objectId);
 
-        else if (syntaxData.type == SyntaxType::zeroOrOne)
+        else if (syntaxData.type == SyntaxType::zeroOrOne) {
             parse(*syntaxData.left, objectId);
+
+            if (!errorString.empty())
+                success = false;
+        }
 
         else if (syntaxData.type == SyntaxType::oneOrMore) {
             success = false;
             while (parse(*syntaxData.left, objectId))
                 success = true;
+
+            if (!errorString.empty())
+                success = false;
         }
 
         else if (syntaxData.type == SyntaxType::zeroOrMore) {
             while (parse(*syntaxData.left, objectId));
+
+            if (!errorString.empty())
+                success = false;
         }
 
         else if (syntaxData.type == SyntaxType::conjunction)
@@ -61,7 +70,8 @@ class Parser
             success = stringSequencer.isInRange(syntaxData.content[0], syntaxData.content[1]);
 
         else {
-            errorString = syntaxData.content;
+            if (errorString.empty())
+                errorString = syntaxData.content;
             success = false;
         }
 
@@ -92,7 +102,8 @@ class Parser
 
         bool parse()
         {
-			return parse(syntax.getData(), Parser::nullParent);
+            errorString.clear();
+			return parse(syntax.getData(), ObjectTree::nullObject);
         }
 
         std::string getErrorString() const

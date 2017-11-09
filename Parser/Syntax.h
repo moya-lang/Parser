@@ -78,6 +78,11 @@ class Syntax
 
         Syntax(Syntax &&syntax) noexcept = default;
 
+        bool operator ==(std::size_t syntaxId) const noexcept
+        {
+            return syntaxId == data.id;
+        }
+
         Syntax operator ~() const & noexcept
         {
             return Syntax(*this, SyntaxType::visibility);

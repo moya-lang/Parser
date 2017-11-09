@@ -20,6 +20,7 @@ class FileString : public std::string
             std::istreambuf_iterator<char>());
     }
 
+
     public:
 
         bool load(const char *fileName)

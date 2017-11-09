@@ -7,6 +7,7 @@ class StringSequencer
 {
 	const std::string &string;
 
+
     public:
 
 		std::size_t position = 0;
