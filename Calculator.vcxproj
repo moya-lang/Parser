@@ -148,8 +148,8 @@
     <ClInclude Include="Examples\Calculator\Calculator.h" />
     <ClInclude Include="Examples\Calculator\MathFunctions.h" />
     <ClInclude Include="Examples\Calculator\MathParser.h" />
+    <ClInclude Include="Examples\Calculator\MathSyntax.h" />
     <ClInclude Include="Parser\CopyPointer.h" />
-    <ClInclude Include="Parser\FileString.h" />
     <ClInclude Include="Parser\Object.h" />
     <ClInclude Include="Parser\ObjectTree.h" />
     <ClInclude Include="Parser\Parser.h" />
