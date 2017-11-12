@@ -8,12 +8,14 @@
 
 class Calculator
 {
+    std::string command;
     MathParser mathParser;
 
 
     public:
 
-        Calculator(int argumentCount, char **arguments)
+        Calculator(int argumentCount, char **arguments) :
+            mathParser(command)
         {
             (void) argumentCount;
             (void) arguments;
@@ -26,17 +28,16 @@ class Calculator
 
             while (true) {
 
-                std::string command;
                 std::cout << std::endl << ": ";
                 std::getline(std::cin, command);
 
-                if (command == "")
+                if (command.empty())
                     continue;
 
                 if (command == "exit")
                     return 0;
 
-                if (mathParser.solve(command))
+                if (mathParser.solve())
                     std::cout << mathParser.getResult() << std::endl;
 
                 else
