@@ -3,6 +3,8 @@
 
 #include <cstddef>
 
+namespace Moya {
+
 class Object
 {
     public:
@@ -12,5 +14,7 @@ class Object
         std::size_t from = 0;
         std::size_t to = 0;
 };
+
+}
 
 #endif

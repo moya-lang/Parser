@@ -7,6 +7,8 @@
 #include "StringSequencer.h"
 #include "ObjectTree.h"
 
+namespace Moya {
+
 class Parser
 {
     const Syntax &syntax;
@@ -111,5 +113,7 @@ class Parser
             return errorString;
         }
 };
+
+}
 
 #endif
