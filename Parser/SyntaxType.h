@@ -1,6 +1,8 @@
 #ifndef SyntaxTypeH
 #define SyntaxTypeH
 
+namespace Moya {
+
 enum class SyntaxType : std::size_t
 {
     reference,
@@ -16,5 +18,7 @@ enum class SyntaxType : std::size_t
     range,
     error,
 };
+
+}
 
 #endif

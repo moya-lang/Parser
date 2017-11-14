@@ -14,7 +14,7 @@ class MathParser
 
     MathSyntax mathSyntax;
     MathFunctions mathFunctions;
-    ObjectTree objectTree;
+    Moya::ObjectTree objectTree;
 
     std::map<std::string, double> variables;
     std::string errorString;
@@ -39,7 +39,7 @@ class MathParser
     {
         objectTree.next();
 
-        const Object &variable = *objectTree;
+        const Moya::Object &variable = *objectTree;
         std::string variableName(expression, variable.from, variable.to - variable.from);
 
         objectTree.next();
@@ -57,7 +57,7 @@ class MathParser
         if (!objectTree.hasNext())
             return true;
 
-        const Object &operation = *objectTree;
+        const Moya::Object &operation = *objectTree;
         if (operation.parent != parent)
             return true;
 
@@ -85,7 +85,7 @@ class MathParser
         if (!objectTree.hasNext())
             return true;
 
-        const Object &operation = *objectTree;
+        const Moya::Object &operation = *objectTree;
         if (operation.parent != parent)
             return true;
 
@@ -133,7 +133,7 @@ class MathParser
     {
         objectTree.next();
 
-        const Object &object = *objectTree;
+        const Moya::Object &object = *objectTree;
         if (mathSyntax.factor == object.syntaxId)
             return evaluateFactor(result);
 
@@ -152,7 +152,7 @@ class MathParser
     {
         objectTree.next();
 
-        const Object &object = *objectTree;
+        const Moya::Object &object = *objectTree;
 
         if (mathSyntax.bracedExpression == object.syntaxId)
             return evaluateBracedExpression(result);
@@ -177,7 +177,7 @@ class MathParser
     {
         size_t parent = objectTree.next();
 
-        const Object &function = *objectTree;
+        const Moya::Object &function = *objectTree;
         std::string functionName(expression, function.from, function.to - function.from);
 
         objectTree.next();
@@ -205,7 +205,7 @@ class MathParser
 
     bool evaluateVariable(double &result)
     {
-        const Object &variable = *objectTree;
+        const Moya::Object &variable = *objectTree;
         std::string variableName(expression, variable.from, variable.to - variable.from);
 
         objectTree.next();
@@ -221,7 +221,7 @@ class MathParser
 
     bool evaluateRealNumber(double &result)
     {
-        const Object &realNumber = *objectTree;
+        const Moya::Object &realNumber = *objectTree;
         std::string valueStr(expression, realNumber.from, realNumber.to - realNumber.from);
 
         objectTree.next();
@@ -251,8 +251,8 @@ class MathParser
             objectTree.reset();
             errorString.clear();
 
-            StringSequencer stringSequencer(expression);
-            Parser parser(mathSyntax.mathExpression, stringSequencer, objectTree);
+            Moya::StringSequencer stringSequencer(expression);
+            Moya::Parser parser(mathSyntax.mathExpression, stringSequencer, objectTree);
 
             if (!parser.parse()) {
                 errorString = parser.getErrorString();

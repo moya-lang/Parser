@@ -3,6 +3,8 @@
 
 #include <string>
 
+namespace Moya {
+
 class StringSequencer
 {
 	const std::string &string;
@@ -78,5 +80,7 @@ class StringSequencer
             return true;
         }
 };
+
+}
 
 #endif

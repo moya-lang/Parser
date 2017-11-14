@@ -5,6 +5,8 @@
 
 #include "Object.h"
 
+namespace Moya {
+
 class ObjectTree
 {
     std::vector<Object> objects;
@@ -65,5 +67,7 @@ class ObjectTree
             return &objects[objectIndex];
         }
 };
+
+}
 
 #endif

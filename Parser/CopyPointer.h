@@ -2,6 +2,9 @@
 #define CopyPointerH
 
 #include <utility>
+#include <memory>
+
+namespace Moya {
 
 template <typename Type>
 class CopyPointer
@@ -34,7 +37,7 @@ class CopyPointer
         }
 
         CopyPointer(const Type &data) :
-            dynamic(nullptr), pointer(&data)
+            dynamic(nullptr), pointer(const_cast<Type *>(&data))
         {
         }
 
@@ -69,7 +72,7 @@ class CopyPointer
             delete dynamic;
 
             dynamic = nullptr;
-            pointer = const_cast<Type *>(&data); // TODO: Lose qualifier
+            pointer = const_cast<Type *>(&data);
 
             return *this;
         }
@@ -99,5 +102,7 @@ class CopyPointer
             return (pointer != nullptr);
         }
 };
+
+}
 
 #endif

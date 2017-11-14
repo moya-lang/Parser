@@ -8,6 +8,8 @@
 #include "SyntaxType.h"
 #include "CopyPointer.h"
 
+namespace Moya {
+
 class SyntaxData
 {
     public:
@@ -36,5 +38,7 @@ class SyntaxData
         SyntaxData &operator =(const SyntaxData &data) = default;
         SyntaxData &operator =(SyntaxData &&data) = default;
 };
+
+}
 
 #endif

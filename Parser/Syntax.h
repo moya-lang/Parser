@@ -6,6 +6,8 @@
 
 #include "SyntaxData.h"
 
+namespace Moya {
+
 class Syntax
 {
     SyntaxData data;
@@ -193,5 +195,7 @@ class Syntax
             return data;
         }
 };
+
+}
 
 #endif

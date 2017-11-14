@@ -5,25 +5,25 @@
 
 struct MathSyntax
 {
-    Syntax mathExpression = !assignment & additiveExpression & whitespaces & (Syntax::endOfFile() | Syntax::error("Unexpected character"));
-    Syntax assignment = whitespaces & (constantAssignment | (variable & assignmentOperator));
-    Syntax constantAssignment = ~(constant & assignmentOperator & Syntax::error("Cannot assign to constant"));
-    Syntax assignmentOperator = ~(whitespaces & Syntax::sequence("="));
-    Syntax additiveExpression = multiplicativeExpression & !(whitespaces & ~Syntax::oneOf("+-") & (additiveExpression | Syntax::error("Factor expected")));
-    Syntax multiplicativeExpression = exponentalExpression & !(whitespaces & ~Syntax::oneOf("*/") & (multiplicativeExpression | Syntax::error("Factor expected")));
-    Syntax exponentalExpression = unaryOperation & !(whitespaces & Syntax::sequence("^") & (exponentalExpression | Syntax::error("Factor expected")));
-    Syntax unaryOperation = factor | (whitespaces & ~Syntax::oneOf("-+") & unaryOperation) | Syntax::error("Factor expected");
-    Syntax factor = whitespaces & (bracedExpression | functionCall | variable | realNumber);
-    Syntax bracedExpression = Syntax::sequence("(") & additiveExpression & whitespaces & (Syntax::sequence(")") | Syntax::error("Closing bracket expected"));
-    Syntax functionCall = ~identifier & whitespaces & Syntax::sequence("(") & argumentList & whitespaces & (Syntax::sequence(")") | Syntax::error("Closing bracket expected"));
-    Syntax argumentList = ~!(additiveExpression & *(whitespaces & Syntax::sequence(",") & additiveExpression));
-    Syntax constant = ~(Syntax::sequence("ans") | Syntax::sequence("pi") | Syntax::sequence("e"));
-    Syntax variable = identifier;
-    Syntax identifier = ~(letter & *(letter | digit));
-    Syntax realNumber = +digit & !(Syntax::sequence(".") & +digit) & !(Syntax::oneOf("Ee") & !Syntax::oneOf("+-") & +digit);
-    Syntax whitespaces = ~*Syntax::oneOf(" \n\r\t\f\v");
-    Syntax letter = ~(Syntax::range('a', 'z') | Syntax::range('A', 'Z'));
-    Syntax digit = ~Syntax::range('0', '9');
+    Moya::Syntax mathExpression = !assignment & additiveExpression & whitespaces & (Moya::Syntax::endOfFile() | Moya::Syntax::error("Unexpected character"));
+    Moya::Syntax assignment = whitespaces & (constantAssignment | (variable & assignmentOperator));
+    Moya::Syntax constantAssignment = ~(constant & assignmentOperator & Moya::Syntax::error("Cannot assign to constant"));
+    Moya::Syntax assignmentOperator = ~(whitespaces & Moya::Syntax::sequence("="));
+    Moya::Syntax additiveExpression = multiplicativeExpression & !(whitespaces & ~Moya::Syntax::oneOf("+-") & (additiveExpression | Moya::Syntax::error("Factor expected")));
+    Moya::Syntax multiplicativeExpression = exponentalExpression & !(whitespaces & ~Moya::Syntax::oneOf("*/") & (multiplicativeExpression | Moya::Syntax::error("Factor expected")));
+    Moya::Syntax exponentalExpression = unaryOperation & !(whitespaces & Moya::Syntax::sequence("^") & (exponentalExpression | Moya::Syntax::error("Factor expected")));
+    Moya::Syntax unaryOperation = factor | (whitespaces & ~Moya::Syntax::oneOf("-+") & unaryOperation) | Moya::Syntax::error("Factor expected");
+    Moya::Syntax factor = whitespaces & (bracedExpression | functionCall | variable | realNumber);
+    Moya::Syntax bracedExpression = Moya::Syntax::sequence("(") & additiveExpression & whitespaces & (Moya::Syntax::sequence(")") | Moya::Syntax::error("Closing bracket expected"));
+    Moya::Syntax functionCall = ~identifier & whitespaces & Moya::Syntax::sequence("(") & argumentList & whitespaces & (Moya::Syntax::sequence(")") | Moya::Syntax::error("Closing bracket expected"));
+    Moya::Syntax argumentList = ~!(additiveExpression & *(whitespaces & Moya::Syntax::sequence(",") & additiveExpression));
+    Moya::Syntax constant = ~(Moya::Syntax::sequence("ans") | Moya::Syntax::sequence("pi") | Moya::Syntax::sequence("e"));
+    Moya::Syntax variable = identifier;
+    Moya::Syntax identifier = ~(letter & *(letter | digit));
+    Moya::Syntax realNumber = +digit & !(Moya::Syntax::sequence(".") & +digit) & !(Moya::Syntax::oneOf("Ee") & !Moya::Syntax::oneOf("+-") & +digit);
+    Moya::Syntax whitespaces = ~*Moya::Syntax::oneOf(" \n\r\t\f\v");
+    Moya::Syntax letter = ~(Moya::Syntax::range('a', 'z') | Moya::Syntax::range('A', 'Z'));
+    Moya::Syntax digit = ~Moya::Syntax::range('0', '9');
 };
 
 #endif
