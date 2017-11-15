@@ -12,8 +12,8 @@ namespace Moya {
 class Parser
 {
     const Syntax &syntax;
-	StringSequencer &stringSequencer;
-	ObjectTree &objectTree;
+    StringSequencer &stringSequencer;
+    ObjectTree &objectTree;
 
     std::string errorString;
 
@@ -105,7 +105,7 @@ class Parser
         bool parse()
         {
             errorString.clear();
-			return parse(syntax.getData(), ObjectTree::nullObject);
+            return parse(syntax.getData(), ObjectTree::nullObject);
         }
 
         std::string getErrorString() const
