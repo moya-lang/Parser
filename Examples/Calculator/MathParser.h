@@ -236,9 +236,9 @@ class MathParser
         MathParser(const std::string &expression) :
             expression(expression)
         {
-			variables["e"] = 2.7182818284590452;
-			variables["pi"] = 3.1415926535897932;
-			variables["ans"] = 0;
+            variables["e"] = 2.7182818284590452;
+            variables["pi"] = 3.1415926535897932;
+            variables["ans"] = 0;
         }
 
         double getResult() const
@@ -262,10 +262,10 @@ class MathParser
             return evaluateMathExpression();
         }
 
-		std::string getErrorString() const
-		{
-			return errorString;
-		}
+        std::string getErrorString() const
+        {
+            return errorString;
+        }
 };
 
 #endif

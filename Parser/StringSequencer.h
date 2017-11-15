@@ -7,12 +7,12 @@ namespace Moya {
 
 class StringSequencer
 {
-	const std::string &string;
+    const std::string &string;
 
 
     public:
 
-		std::size_t position = 0;
+        std::size_t position = 0;
 
         StringSequencer(const std::string &string) :
             string(string)
