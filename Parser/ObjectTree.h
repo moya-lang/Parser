@@ -66,6 +66,11 @@ class ObjectTree
         {
             return &objects[objectIndex];
         }
+
+        const Object &operator [](std::size_t index) const
+        {
+            return objects[index];
+        }
 };
 
 }
