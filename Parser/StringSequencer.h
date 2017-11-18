@@ -33,37 +33,6 @@ class StringSequencer
             return position >= string.size();
         }
 
-        bool isInRange(char from, char to)
-        {
-            if (isEndOfFile())
-                return false;
-
-            const char *data = string.data();
-            char character = data[position];
-            if ((character >= from) && (character <= to)) {
-                position++;
-                return true;
-            }
-
-            return false;
-        }
-
-        bool isOneOf(const char *set)
-        {
-            if (position >= string.size())
-                return false;
-
-            const char *data = string.data();
-            char character = data[position];
-            while (*set)
-                if (character == *(set++)) {
-                    position++;
-                    return true;
-                }
-
-            return false;
-        }
-
         bool isSequence(const char *sequence)
         {
             std::size_t newPosition = position;
@@ -78,6 +47,52 @@ class StringSequencer
 
             position = newPosition;
             return true;
+        }
+
+        bool isNoneOf(const char *set)
+        {
+            if (isEndOfFile())
+                return false;
+
+            const char *data = string.data();
+            char character = data[position];
+            while (*set)
+                if (character == *(set++))
+                    return false;
+
+            position++;
+            return true;
+        }
+
+        bool isOneOf(const char *set)
+        {
+            if (isEndOfFile())
+                return false;
+
+            const char *data = string.data();
+            char character = data[position];
+            while (*set)
+                if (character == *(set++)) {
+                    position++;
+                    return true;
+                }
+
+            return false;
+        }
+
+        bool isInRange(char from, char to)
+        {
+            if (isEndOfFile())
+                return false;
+
+            const char *data = string.data();
+            unsigned char character = static_cast<unsigned char>(data[position]);
+            if ((character >= static_cast<unsigned char>(from)) && (character <= static_cast<unsigned char>(to))) {
+                position++;
+                return true;
+            }
+
+            return false;
         }
 };
 

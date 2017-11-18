@@ -175,6 +175,11 @@ class Syntax
             return Syntax(SyntaxType::sequence, content);
         }
 
+        static Syntax noneOf(std::string content) noexcept
+        {
+            return Syntax(SyntaxType::noneOf, content);
+        }
+
         static Syntax oneOf(std::string content) noexcept
         {
             return Syntax(SyntaxType::oneOf, content);

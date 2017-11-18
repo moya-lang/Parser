@@ -14,6 +14,7 @@ enum class SyntaxType : std::size_t
     alternative,
     endOfFile,
     sequence,
+    noneOf,
     oneOf,
     range,
     error,

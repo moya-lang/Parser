@@ -65,6 +65,9 @@ class Parser
         else if (syntaxData.type == SyntaxType::sequence)
             success = stringSequencer.isSequence(syntaxData.content.c_str());
 
+        else if (syntaxData.type == SyntaxType::noneOf)
+            success = stringSequencer.isNoneOf(syntaxData.content.c_str());
+
         else if (syntaxData.type == SyntaxType::oneOf)
             success = stringSequencer.isOneOf(syntaxData.content.c_str());
 

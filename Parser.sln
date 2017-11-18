@@ -5,7 +5,9 @@ VisualStudioVersion = 15.0.27004.2008
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Calculator", "Calculator.vcxproj", "{584EC312-3AD5-45EC-ACA8-231F03DA4B44}"
 EndProject
-Project("{7DF85B39-C168-4379-B234-4695234E8260}") = "PrintTree", "PrintTree.vcxproj", "{E8110641-1119-4337-ABCD-FF96B922A1D2}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PrintTree", "PrintTree.vcxproj", "{E8110641-1119-4337-ABCD-FF96B922A1D2}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Json", "Json.vcxproj", "{117A4275-C4B2-449A-A3F7-935726C00311}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -31,6 +33,14 @@ Global
 		{E8110641-1119-4337-ABCD-FF96B922A1D2}.Release|x64.Build.0 = Release|x64
 		{E8110641-1119-4337-ABCD-FF96B922A1D2}.Release|x86.ActiveCfg = Release|Win32
 		{E8110641-1119-4337-ABCD-FF96B922A1D2}.Release|x86.Build.0 = Release|Win32
+		{117A4275-C4B2-449A-A3F7-935726C00311}.Debug|x64.ActiveCfg = Debug|x64
+		{117A4275-C4B2-449A-A3F7-935726C00311}.Debug|x64.Build.0 = Debug|x64
+		{117A4275-C4B2-449A-A3F7-935726C00311}.Debug|x86.ActiveCfg = Debug|Win32
+		{117A4275-C4B2-449A-A3F7-935726C00311}.Debug|x86.Build.0 = Debug|Win32
+		{117A4275-C4B2-449A-A3F7-935726C00311}.Release|x64.ActiveCfg = Release|x64
+		{117A4275-C4B2-449A-A3F7-935726C00311}.Release|x64.Build.0 = Release|x64
+		{117A4275-C4B2-449A-A3F7-935726C00311}.Release|x86.ActiveCfg = Release|Win32
+		{117A4275-C4B2-449A-A3F7-935726C00311}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
