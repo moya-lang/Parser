@@ -146,6 +146,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Examples\Json\Json.h" />
+    <ClInclude Include="Examples\Json\JsonObject.h" />
+    <ClInclude Include="Examples\Json\JsonObjectType.h" />
+    <ClInclude Include="Examples\Json\JsonSyntax.h" />
     <ClInclude Include="Parser\CopyPointer.h" />
     <ClInclude Include="Parser\Object.h" />
     <ClInclude Include="Parser\ObjectTree.h" />
