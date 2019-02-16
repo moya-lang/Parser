@@ -39,8 +39,8 @@ class StringSequencer
                 return false;
 
             const char *data = string.data();
-            char character = data[position];
-            if ((character >= from) && (character <= to)) {
+            unsigned character = (unsigned) data[position];
+            if ((character >= (unsigned) from) && (character <= (unsigned) to)) {
                 position++;
                 return true;
             }
@@ -64,6 +64,21 @@ class StringSequencer
             return false;
         }
 
+        bool isNoneOf(const char *set)
+        {
+            if (position >= string.size())
+                return false;
+
+            const char *data = string.data();
+            char character = data[position];
+            while (*set)
+                if (character == *(set++))
+                    return false;
+
+            position++;
+            return true;
+        }
+
         bool isSequence(const char *sequence)
         {
             std::size_t newPosition = position;
@@ -77,6 +92,16 @@ class StringSequencer
                 return false;
 
             position = newPosition;
+            return true;
+        }
+
+        bool isOther(const char *sequence)
+        {
+            const char *data = string.data();
+            if (!strcmp(&data[position], sequence))
+                return false;
+
+            position++;
             return true;
         }
 };

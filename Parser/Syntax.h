@@ -170,9 +170,19 @@ class Syntax
             return Syntax(SyntaxType::endOfFile);
         }
 
+        static Syntax advance() noexcept
+        {
+            return Syntax(SyntaxType::advance);
+        }
+
         static Syntax sequence(std::string content) noexcept
         {
             return Syntax(SyntaxType::sequence, content);
+        }
+
+        static Syntax other(std::string content) noexcept
+        {
+            return Syntax(SyntaxType::other, content);
         }
 
         static Syntax oneOf(std::string content) noexcept
@@ -180,9 +190,24 @@ class Syntax
             return Syntax(SyntaxType::oneOf, content);
         }
 
+        static Syntax noneOf(std::string content) noexcept
+        {
+            return Syntax(SyntaxType::noneOf, content);
+        }
+
         static Syntax range(char from, char to) noexcept
         {
             return Syntax(SyntaxType::range, { from, to });
+        }
+
+        static Syntax positive() noexcept
+        {
+            return Syntax(SyntaxType::positive);
+        }
+
+        static Syntax negative() noexcept
+        {
+            return Syntax(SyntaxType::negative);
         }
 
         static Syntax error(std::string content) noexcept

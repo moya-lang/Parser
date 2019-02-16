@@ -13,9 +13,14 @@ enum class SyntaxType : std::size_t
     conjunction,
     alternative,
     endOfFile,
+    advance,
     sequence,
+    other,
     oneOf,
+    noneOf,
     range,
+    positive,
+    negative,
     error,
 };
 

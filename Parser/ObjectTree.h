@@ -22,10 +22,14 @@ class ObjectTree
             reset();
         }
 
-        size_t create()
+        size_t getNextId()
+        {
+            return objects.size();
+        }
+
+        void create()
         {
             objects.push_back(Object());
-            return objects.size() - 1;
         }
 
         void rollback(size_t id)

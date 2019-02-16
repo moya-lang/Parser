@@ -3,7 +3,7 @@
 
 #include <memory>
 #include <string>
-#include <atomic>
+//#include <atomic>
 
 #include "SyntaxType.h"
 #include "CopyPointer.h"
@@ -24,7 +24,8 @@ class SyntaxData
 
         unsigned generateUniqueSyntaxId()
         {
-            static std::atomic<unsigned> uniqueSyntaxId = 0;
+            // static std::atomic<unsigned> uniqueSyntaxId = 0;
+            static unsigned uniqueSyntaxId = 0;
             return ++uniqueSyntaxId;
         }
 
